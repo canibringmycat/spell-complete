@@ -1,5 +1,6 @@
 import random
-
+import nltk
+from nltk.corpus import gutenberg
 # Spell Check and Auto-Complete
 # Author: Sam Choi
 
@@ -16,9 +17,14 @@ class Markov():
 		word_dict[next_word] += 1
 		self.update()
 
-	def train_set(self, words):
+	def train_set(self, words, domain=0):
 		# implement for data input in form of text file
-		return 0
+		# possible forms of words... .txt, string (sentence), etc
+		if domain == 0:
+			domain = len(words)-1
+		for i in range(domain):
+			print(i)
+			self.train_word(words[i], words[i+1])
 
 	def update(self):
 		for word in self.word_history:
@@ -38,15 +44,26 @@ class Markov():
 def auto_complete(model, query):
 	model.retrieve_next(query)
 
-test = Markov()
-test.train_word("hello", "world")
-test.train_word("hello", "friend")
-test.train_word("hello", "world")
-print(test.retrieve_next("hello"))
 
-test.train_word("hello", "friend")
-test.train_word("hello", "friend")
-test.train_word("hello", "friend")
-print(test.retrieve_next("hello"))
+
+# test = Markov()
+# test.train_word("hello", "world")
+# test.train_word("hello", "friend")
+# test.train_word("hello", "world")
+# print(test.retrieve_next("hello"))
+
+# test.train_word("hello", "friend")
+# test.train_word("hello", "friend")
+# test.train_word("hello", "friend")
+# print(test.retrieve_next("hello"))
+
+
+# alice = gutenberg.words('carroll-alice.txt')
+
+# file_test = Markov()
+# file_test.train_set(alice, 10000)
+# print(file_test.word_history['go'])
+# print(file_test.retrieve_next('go'))
+
 
 
